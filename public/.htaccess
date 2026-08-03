@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# Se o que foi pedido já é um arquivo ou pasta real (ex.: /css/style.css),
+# o Apache serve normalmente, sem passar pelo roteador.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Qualquer outra URL (ex.: /login, /produtos, /produtos/3/editar) é
+# redirecionada para o index.php, que contém o Router da aplicação
+# (core/Router.php + app/routes.php) e decide o que fazer com ela.
+RewriteRule ^ index.php [L]
